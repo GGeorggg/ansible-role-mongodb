@@ -63,3 +63,21 @@
     name: mongod
     state: started
     enabled: true
+
+- name: Check whether admin user is already exist
+  command: >
+    mongo --quiet {{ '--ssl --host ' + __mongodb_net_host|default('localhost') if mongodb_net_tls_mode == 'requireSSL' else '' }} -u {{ mongodb_user_admin_name }} \
+          -p {{ mongodb_user_admin_password }} --port {{ mongodb_net_port }} --eval 'db.version()' admin
+  register: __mongodb_user_admin_check
+  changed_when: false
+  check_mode: no
+  ignore_errors: true
+  when: ( mongodb_security_authorization == 'enabled'
+          and not mongodb_replication_replset|default(true) )
+  no_log: true
+
+- name: Include authorization configuration
+  include_tasks: auth_initialization.yml
+  when: ( mongodb_security_authorization == 'enabled'
+          and not mongodb_replication_replset|default(true)
+          and __mongodb_user_admin_check.rc != 0 )
