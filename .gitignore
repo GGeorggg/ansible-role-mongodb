@@ -1,7 +1,8 @@
 .molecule
 *.log
 *.swp
-.tox
 .cache
 .DS_Store
 /templates/*.j2~
+.ansible
+results-*.txt

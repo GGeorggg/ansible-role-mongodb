@@ -1,4 +1,4 @@
-# [Ansible role mongodb](#mongodb)
+# [Ansible role mongodb](#ansible-role-mongodb)
 
 Install and configure mongodb on your system.
 
@@ -45,6 +45,9 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 ---
 # defaults file for mongodb
 
+# The version of MongoDB to install, the repository must exist for your distribution.
+mongodb_version: "8.0"
+
 # You can overwrite the mongodb_dbpath, which is determined in `vars/main.yml`.
 # When you overwrite this value, please ensure the directory exists and has the correct permissions and ownership.
 mongodb_dbpath: "{{ mongodb_default_dbpath }}"
@@ -68,7 +71,7 @@ The following roles are used to prepare a system. You can prepare your system in
 
 ## [Context](#context)
 
-This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
+This role is part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
 
 Here is an overview of related roles:
 ![dependencies](https://raw.githubusercontent.com/robertdebock/ansible-role-mongodb/png/requirements.png "Dependencies")
@@ -79,17 +82,13 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 
 |container|tags|
 |---------|----|
-|[Debian](https://hub.docker.com/r/robertdebock/debian)|bullseye|
-|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|all|
+|[Debian](https://hub.docker.com/r/robertdebock/debian)|bookworm|
+|[EL](https://hub.docker.com/r/robertdebock/enterpriselinux)|9|
 |[Ubuntu](https://hub.docker.com/r/robertdebock/ubuntu)|all|
 
-The minimum version of Ansible required is 2.12, tests have been done to:
+The minimum version of Ansible (ansible-core) required is 2.20, tests are done with the latest release of ansible-core.
 
-- The previous version.
-- The current version.
-- The development version.
-
-If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-mongodb/issues).
+If you find issues, please register them on [GitHub](https://github.com/robertdebock/ansible-role-mongodb/issues).
 
 ## [License](#license)
 
